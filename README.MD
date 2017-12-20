@@ -1,4 +1,5 @@
 # GiphyRB
+[![Gem Version](https://badge.fury.io/rb/giphyrb.svg)](https://badge.fury.io/rb/giphyrb)
 ## Installation
 
 Add this line to your application's Gemfile:
