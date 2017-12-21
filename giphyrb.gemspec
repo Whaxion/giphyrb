@@ -1,3 +1,5 @@
+require_relative 'lib/giphyrb'
+
 Gem::Specification.new do |s|
   s.summary     = 'Giphy API wrapper'
   s.description = 'A simple Giphy API Wrapper'
@@ -10,5 +12,5 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.name        = 'giphyrb'
-  s.version     = '0.1'
+  s.version     = GiphyRB::Giphy::VERSION
 end

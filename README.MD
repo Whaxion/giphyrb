@@ -30,34 +30,40 @@ giphy.trending(limit=5, offset=0, rating='g')
 
 #### Translate
 ````ruby
-Giphy.translate(string)
+giphy.translate(string)
 => GiphyRB::Responses::Translate
 ````
 
 #### Search
 ````ruby
-Giphy.search(query, limit=5, offset=0, rating='g', lang=nil)
+giphy.search(query, limit=5, offset=0, rating='g', lang=nil)
 => GiphyRB::Responses::Search
 ````
 
 #### Random
 ````ruby
-Giphy.random(tag=nil, rating='g')
+giphy.random(tag=nil, rating='g')
 => GiphyRB::Responses::Random
 ````
 
 #### GIF by ID
 ````ruby
-Giphy.from_id(id)
+giphy.from_id(id)
 => GiphyRB::Response
 ````
 
 #### GIFs by IDs
 ````ruby
-Giphy.from_ids(ids=[])
+giphy.from_ids(ids=[])
 => GiphyRB::Response
 ````
 
 ## License
 
 See [LICENSE](https://github.com/Whaxion/giphyrb/blob/master/LICENSE) for details.
+
+##TODO list
+
+- Add Sticker API
+- Document code
+- Improve user experience (new syntax)
