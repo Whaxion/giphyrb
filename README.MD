@@ -62,7 +62,7 @@ giphy.from_ids(ids=[])
 
 See [LICENSE](https://github.com/Whaxion/giphyrb/blob/master/LICENSE) for details.
 
-##TODO list
+## TODO list
 
 - Add Sticker API
 - Document code
