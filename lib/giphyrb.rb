@@ -11,7 +11,8 @@ module GiphyRB
 
     ENDPOINT = 'http://api.giphy.com'
     API_VERSION = 'v1'
-    VERSION = '0.1.1'
+    VERSION = '0.2'
+    DESCRIPTION ='A simple Giphy API Wrapper supporting Stickers API (except Stickers pack)'
 
     # Initialize the client
     def initialize(api_key:true)
@@ -80,6 +81,50 @@ module GiphyRB
       params = {:ids => ids}
       result = request'gifs/', params
       Response.new(result)
+    end
+
+    # Replicates the functionality and requirements of the classic GIPHY search, but returns animated stickers rather than GIFs.
+    # @param query [String] Search query term or phrase
+    # @param limit [Int] The maximum number of records to return (default=5)
+    # @param offset [Int] An optional results offset. (default=0)
+    # @param rating [String] Filters results by specified rating (default=g)
+    # @param lang [String] Specify default language for regional content; use a 2-letter ISO 639-1 language code (default=nil)
+    # @return [Responses::Search]
+    def sticker_search(query, limit=5, offset=0, rating='g', lang=nil)
+      params = {:q => query, :limit => limit.to_i, :offset => offset.to_i, :rating => rating}
+      params[:lang] = lang unless lang == nil
+      result = request'stickers/search', params
+      Responses::Search.new(result, query)
+    end
+
+    # Fetch Stickers currently trending online. Hand curated by the GIPHY editorial team.
+    # @param limit [Int] The maximum number of records to return (default=5)
+    # @param offset [Int] An optional results offset. (default=0)
+    # @param rating [String] Filters results by specified rating (default=g)
+    # @return [Responses::Trending]
+    def sticker_trending(limit=5, offset=0, rating='g')
+      params = {:limit => limit.to_i, :offset => offset.to_i, :rating => rating}
+      result = request'stickers/trending', params
+      Responses::Trending.new(result)
+    end
+
+    # The translate API draws on search, but uses the GIPHY special sauce to handle translating from one vocabulary to another. In this case, words and phrases to GIFs.
+    # @param string [String] Search term
+    # @return [Responses::Translate]
+    def sticker_translate(string)
+      params = {:s => string}
+      result = request'stickers/translate', params
+      Responses::Translate.new(result)
+    end
+
+    # Returns a random Sticker, limited by tag. Excluding the tag parameter will return a random Sticker from the GIPHY catalog.
+    # @param tag [String] Filters results by specified tag
+    # @param rating [String] Filters results by specified rating (default=g)
+    # @return [Responses::Random]
+    def sticker_random(tag=nil, rating='g')
+      params = {:tag => tag, :rating => rating}
+      result = request'stickers/random', params
+      Responses::Random.new(result, tag)
     end
 
     private

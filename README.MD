@@ -64,6 +64,5 @@ See [LICENSE](https://github.com/Whaxion/giphyrb/blob/master/LICENSE) for detail
 
 ## TODO list
 
-- Add Sticker API
-- Document code
+- Add Stickers packs
 - Improve user experience (new syntax)
