@@ -19,14 +19,12 @@ module GiphyRB
     end
 
     # Search all GIPHY GIFs for a word or phrase. Punctuation will be stripped and ignored. Use a plus or url encode for phrases.
-    # == Arguments
-    # +query+:: Search query term or phrase
-    # +limit+:: The maximum number of records to return (default=5)
-    # +offset+:: An optional results offset. (default=0)
-    # +rating+:: Filters results by specified rating (default=g)
-    # +lang+:: Specify default language for regional content; use a 2-letter ISO 639-1 language code (default=nil)
-    # == Return
-    # Responses::Search
+    # @param query [String] Search query term or phrase
+    # @param limit [Int] The maximum number of records to return (default=5)
+    # @param offset [Int] An optional results offset. (default=0)
+    # @param rating [String] Filters results by specified rating (default=g)
+    # @param lang [String] Specify default language for regional content; use a 2-letter ISO 639-1 language code (default=nil)
+    # @return [Responses::Search]
     def search(query, limit=5, offset=0, rating='g', lang=nil)
       params = {:q => query, :limit => limit.to_i, :offset => offset.to_i, :rating => rating}
       params[:lang] = lang unless lang == nil
@@ -35,12 +33,10 @@ module GiphyRB
     end
 
     # Fetch GIFs currently trending online. Hand curated by the GIPHY editorial team. The data returned mirrors the GIFs showcased on the GIPHY homepage.
-    # == Arguments
-    # +limit+:: The maximum number of records to return (default=5)
-    # +offset+:: An optional results offset. (default=0)
-    # +rating+:: Filters results by specified rating (default=g)
-    # == Return
-    # Responses::Trending
+    # @param limit [Int] The maximum number of records to return (default=5)
+    # @param offset [Int] An optional results offset. (default=0)
+    # @param rating [String] Filters results by specified rating (default=g)
+    # @return [Responses::Trending]
     def trending(limit=5, offset=0, rating='g')
       params = {:limit => limit.to_i, :offset => offset.to_i, :rating => rating}
       result = request'gifs/trending', params
@@ -48,10 +44,8 @@ module GiphyRB
     end
 
     # The translate API draws on search, but uses the GIPHY special sauce to handle translating from one vocabulary to another. In this case, words and phrases to GIFs.
-    # == Arguments
-    # +string+:: Search term
-    # == Return
-    # Responses::Translate
+    # @param string [String] Search term
+    # @return [Responses::Translate]
     def translate(string)
       params = {:s => string}
       result = request'gifs/translate', params
@@ -59,11 +53,9 @@ module GiphyRB
     end
 
     # Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the GIPHY catalog.
-    # == Arguments
-    # +tag+:: Filters results by specified tag
-    # +rating+:: Filters results by specified rating (default=g)
-    # == Return
-    # Responses::Random
+    # @param tag [String] Filters results by specified tag
+    # @param rating [String] Filters results by specified rating (default=g)
+    # @return [Responses::Random]
     def random(tag=nil, rating='g')
       params = {:tag => tag, :rating => rating}
       result = request'gifs/random', params
@@ -71,10 +63,8 @@ module GiphyRB
     end
 
     # Returns a GIF given that GIF's unique ID.
-    # == Arguments
-    # +id+:: Filters results by specified GIF ID
-    # == Return
-    # Response
+    # @param id [String] Filters results by specified GIF ID
+    # @return [Response]
     def from_id(id)
       params = {}
       result = request'gifs/' + id.to_s, params
@@ -82,10 +72,8 @@ module GiphyRB
     end
 
     # A multiget version of the get GIF by ID endpoint
-    # == Arguments
-    # +ids+:: Filters results by specified GIF IDs (Array)
-    # == Return
-    # Response
+    # @param ids [Array<String>] Filters results by specified GIF IDs
+    # @return [Response]
     def from_ids(ids=[])
       ids = Array(ids)
       ids = ids.join ','
