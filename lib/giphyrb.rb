@@ -13,7 +13,7 @@ module GiphyRB
     ENDPOINT = 'http://api.giphy.com'
     API_VERSION = 'v1'
     VERSION = '0.2'
-    DESCRIPTION ='A simple Giphy API Wrapper supporting Stickers API (except Stickers pack)'
+    DESCRIPTION ='A simple Giphy API Wrapper supporting Stickers API and Stickers packs (untested)'
 
     # Initialize the client
     def initialize(api_key:true)
