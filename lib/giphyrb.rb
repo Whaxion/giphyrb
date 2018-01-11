@@ -12,7 +12,7 @@ module GiphyRB
 
     ENDPOINT = 'http://api.giphy.com'
     API_VERSION = 'v1'
-    VERSION = '0.2'
+    VERSION = '0.2.1'
     DESCRIPTION ='A simple Giphy API Wrapper supporting Stickers API and Stickers packs (untested)'
 
     # Initialize the client

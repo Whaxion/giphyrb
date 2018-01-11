@@ -1,6 +1,6 @@
-require_relative 'parts/child_pack'
-require_relative 'parts/meta'
-require_relative 'parts/pagination'
+require_relative '../parts/child_pack'
+require_relative '../parts/meta'
+require_relative '../parts/pagination'
 
 module GiphyRB
 
