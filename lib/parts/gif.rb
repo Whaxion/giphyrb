@@ -32,6 +32,8 @@ module GiphyRB
         @images = parse_images(arr['images']) unless arr['images'] == nil
       end
 
+      private
+
       def parse_images(arr)
         images = {}
         arr.each do |name, data|

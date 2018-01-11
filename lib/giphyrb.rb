@@ -5,6 +5,7 @@ require_relative 'responses/search'
 require_relative 'responses/trending'
 require_relative 'responses/translate'
 require_relative 'responses/random'
+require_relative 'responses/sticker_pack'
 
 module GiphyRB
   class Giphy
@@ -22,7 +23,7 @@ module GiphyRB
     # Search all GIPHY GIFs for a word or phrase. Punctuation will be stripped and ignored. Use a plus or url encode for phrases.
     # @param query [String] Search query term or phrase
     # @param limit [Int] The maximum number of records to return (default=5)
-    # @param offset [Int] An optional results offset. (default=0)
+    # @param offset [Int] An optional results offset (default=0)
     # @param rating [String] Filters results by specified rating (default=g)
     # @param lang [String] Specify default language for regional content; use a 2-letter ISO 639-1 language code (default=nil)
     # @return [Responses::Search]
@@ -35,7 +36,7 @@ module GiphyRB
 
     # Fetch GIFs currently trending online. Hand curated by the GIPHY editorial team. The data returned mirrors the GIFs showcased on the GIPHY homepage.
     # @param limit [Int] The maximum number of records to return (default=5)
-    # @param offset [Int] An optional results offset. (default=0)
+    # @param offset [Int] An optional results offset (default=0)
     # @param rating [String] Filters results by specified rating (default=g)
     # @return [Responses::Trending]
     def trending(limit=5, offset=0, rating='g')
@@ -86,7 +87,7 @@ module GiphyRB
     # Replicates the functionality and requirements of the classic GIPHY search, but returns animated stickers rather than GIFs.
     # @param query [String] Search query term or phrase
     # @param limit [Int] The maximum number of records to return (default=5)
-    # @param offset [Int] An optional results offset. (default=0)
+    # @param offset [Int] An optional results offset (default=0)
     # @param rating [String] Filters results by specified rating (default=g)
     # @param lang [String] Specify default language for regional content; use a 2-letter ISO 639-1 language code (default=nil)
     # @return [Responses::Search]
@@ -99,7 +100,7 @@ module GiphyRB
 
     # Fetch Stickers currently trending online. Hand curated by the GIPHY editorial team.
     # @param limit [Int] The maximum number of records to return (default=5)
-    # @param offset [Int] An optional results offset. (default=0)
+    # @param offset [Int] An optional results offset (default=0)
     # @param rating [String] Filters results by specified rating (default=g)
     # @return [Responses::Trending]
     def sticker_trending(limit=5, offset=0, rating='g')
@@ -125,6 +126,45 @@ module GiphyRB
       params = {:tag => tag, :rating => rating}
       result = request'stickers/random', params
       Responses::Random.new(result, tag)
+    end
+
+    # Returns the metadata for any Sticker pack.
+    # @return [Responses::ChildPack]
+    def list_sticker_pack()
+      params = {}
+      result = request'stickers/packs/', params
+      Responses::ChildPack.new(result)
+    end
+
+    # Returns the metadata for any Sticker pack.
+    # @param id [String] Filters results by specified Sticker Pack ID
+    # @param limit [Int] The maximum number of records to return (default=5)
+    # @param offset [Int] An optional results offset (default=0)
+    # @return [Responses::StickerPack]
+    def individual_sticker_pack_from_id(id, limit=5, offset=0)
+      params = {:limit => limit.to_i, :offset => offset.to_i}
+      result = request'stickers/packs/' + id.to_s, params
+      Responses::StickerPack.new(result)
+    end
+
+    # Returns the stickers within an individual sticker pack.
+    # @param id [String] Filters results by specified Sticker Pack ID
+    # @param limit [Int] The maximum number of records to return (default=5)
+    # @param offset [Int] An optional results offset (default=0)
+    # @return [Response]
+    def sticker_pack_from_id(id, limit=5, offset=0)
+      params = {:limit => limit.to_i, :offset => offset.to_i}
+      result = request'stickers/packs/' + id.to_s + '/stickers', params
+      Response.new(result)
+    end
+
+    # A Sticker pack is a recursive data structure and so packs may contain other packs. For example, the 'Reactions' pack would have an 'OMG' child pack. This endpoint lists all children packs of a given Sticker pack.
+    # @param id [String] Filters results by specified Sticker Pack ID
+    # @return [Response]
+    def children_pack_from_id(id)
+      params = {}
+      result = request'stickers/packs/' + id.to_s + '/children', params
+      Responses::ChildPack.new(result)
     end
 
     private
