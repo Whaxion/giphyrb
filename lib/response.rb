@@ -20,7 +20,7 @@ module GiphyRB
     end
 
     def generate_gifs(gifs)
-      gifs = [].push(gifs) unless gifs['type'] == nil
+      gifs = [].push(gifs) unless gifs.class == Array
       @gifs = []
       gifs.each do |gif|
         @gifs.push Parts::Gif.new(gif)
